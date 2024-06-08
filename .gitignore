@@ -1,0 +1,6 @@
+# Ignorar arquivos de ambiente virtual do Python
+/venv/
+
+/__pycache__/
+
+/rotas/__pycache__/
