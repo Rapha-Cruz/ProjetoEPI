@@ -76,3 +76,51 @@ def listar_funcionario():
     fechar_conexao(conn)
 
     return jsonify(funcionario)
+
+#atualizar um livro pelo ID
+@funcionarios_bp.route('/<int:id>', methods=['PUT'])
+def atualizar_funcionario(id):
+    data = request.get_json()
+    NOME = data['NOME']
+    CARGO = data['CARGO']
+    LOGIN = data['LOGIN']
+    SENHA = data['SENHA']
+    
+    #criptografa a senha
+    senhaCripto = sha256(SENHA.encode('utf-8')).hexdigest()
+
+    conn = criar_conexao()
+    cursor = conn.cursor()
+
+    sql = "UPDATE funcionario SET NOME = %s, CARGO = %s, LOGIN = %s, SENHA = %s WHERE id_FUNCIONARIO = %s"
+    valores = (NOME, CARGO, LOGIN, senhaCripto, id)
+
+    cursor.execute(sql, valores)
+    conn.commit()
+
+    cursor.close()
+    fechar_conexao(conn)
+
+    return jsonify({"mensagem": "Funcionário atualizado com sucesso"}), 200
+
+#deletar epi
+@funcionarios_bp.route('/<int:id_epi>', methods=['DELETE'])
+def deletar_epi(id_funcionario):
+    conn = criar_conexao()
+    cursor = conn.cursor()
+
+    sql = "DELETE FROM funcionario WHERE id_funcionario = %s"
+    valores = (id_funcionario, )
+
+    try :
+        cursor.execute(sql, valores)
+        conn.commit()
+        return jsonify({"mensagem":"Funcionário deletado"}), 200
+    
+    except Exception as err:
+        conn.rollback()
+        return jsonify({"erro": f"Erro ao deletar o Funcionário: {err}"}), 500
+
+    finally: 
+        cursor.close()
+        fechar_conexao(conn)
