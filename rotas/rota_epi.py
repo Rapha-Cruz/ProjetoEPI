@@ -10,7 +10,7 @@ def listar_epi():
     conn = criar_conexao()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM EPI")
+    cursor.execute("SELECT * FROM epi")
     epi = cursor.fetchall()
 
     #fechar conexão com banco de dados
@@ -33,7 +33,7 @@ def criar_epi():
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO EPI (NOME_EPI, INSTRUCAO_EPI, DATA_ENTREGA, DATA_VENCIMENTO, ID_FUNCIONARIO)"
+    cursor.execute("INSERT INTO epi (NOME_EPI, INSTRUCAO_EPI, DATA_ENTREGA, DATA_VENCIMENTO, ID_FUNCIONARIO)"
                    "VALUES (%s, %s, %s, %s, %s)",
                    (NOME_EPI, INSTRUCAO_EPI, DATA_ENTREGA, DATA_VENCIMENTO, ID_FUNCIONARIO))
     conn.commit()
@@ -57,7 +57,7 @@ def atualizar_epi(id):
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    sql = "UPDATE EPI SET NOME_EPI = %s, INSTRUCAO_EPI = %s, DATA_ENTREGA = %s, DATA_VENCIMENTO = %s, ID_FUNCIONARIO = %s WHERE id_epi = %s"
+    sql = "UPDATE epi SET NOME_EPI = %s, INSTRUCAO_EPI = %s, DATA_ENTREGA = %s, DATA_VENCIMENTO = %s, ID_FUNCIONARIO = %s WHERE id_epi = %s"
     valores = (NOME_EPI, INSTRUCAO_EPI, DATA_ENTREGA, DATA_VENCIMENTO, ID_FUNCIONARIO, id)
 
     cursor.execute(sql, valores)
@@ -74,7 +74,7 @@ def deletar_epi(id_epi):
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    sql = "DELETE FROM EPI WHERE id_epi = %s"
+    sql = "DELETE FROM epi WHERE id_epi = %s"
     valores = (id_epi, )
 
     try :

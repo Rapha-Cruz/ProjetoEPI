@@ -20,7 +20,7 @@ def criar_funcionario():
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO FUNCIONARIO (NOME, LOGIN, SENHA, CARGO)"
+    cursor.execute("INSERT INTO funcionario (NOME, LOGIN, SENHA, CARGO)"
                    "VALUES (%s, %s, %s, %s)",
                   (NOME, LOGIN, senhaCripto, CARGO))
     conn.commit()
@@ -39,7 +39,7 @@ def login_usuario():
     conn = criar_conexao()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT SENHA, NOME, CARGO, ID_FUNCIONARIO FROM FUNCIONARIO WHERE LOGIN = %s",
+    cursor.execute("SELECT SENHA, NOME, CARGO, ID_FUNCIONARIO FROM funcionario WHERE LOGIN = %s",
                   (LOGIN,))      
 
     senhaBanco = cursor.fetchone()    
@@ -68,7 +68,7 @@ def listar_funcionario():
     conn = criar_conexao()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM FUNCIONARIO")
+    cursor.execute("SELECT * FROM funcionario")
     funcionario = cursor.fetchall()
 
     #fechar conexão com banco de dados
