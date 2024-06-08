@@ -104,7 +104,7 @@ def atualizar_funcionario(id):
     return jsonify({"mensagem": "Funcionário atualizado com sucesso"}), 200
 
 #deletar epi
-@funcionarios_bp.route('/<int:id_epi>', methods=['DELETE'])
+@funcionarios_bp.route('/<int:id_funcionario>', methods=['DELETE'])
 def deletar_epi(id_funcionario):
     conn = criar_conexao()
     cursor = conn.cursor()
