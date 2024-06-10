@@ -104,7 +104,11 @@ def listar_porid():
     conn = criar_conexao()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM epi WHERE id_funcionario = %s ORDER BY DATA_VENCIMENTO ASC",
+    cursor.execute("""
+                   SELECT E.*,F.nome, F.cargo FROM epi as E, funcionario as F
+                   WHERE F.ID_FUNCIONARIO = E.ID_FUNCIONARIO                   
+                   AND E.id_funcionario = %s 
+                   ORDER BY E.DATA_VENCIMENTO ASC""",
                    (ID_FUNCIONARIO,))
     epi = cursor.fetchall()
 
