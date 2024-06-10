@@ -13,7 +13,7 @@ def listar_epi():
     cursor.execute("""
                    SELECT E.*,F.NOME, F.CARGO FROM epi as E, funcionario as F
                    WHERE F.ID_FUNCIONARIO = E.ID_FUNCIONARIO
-                   ORDER BY E.DATA_VENCIMENTO ASC")
+                   ORDER BY E.DATA_VENCIMENTO ASC
                     """)
     epi = cursor.fetchall()
 
