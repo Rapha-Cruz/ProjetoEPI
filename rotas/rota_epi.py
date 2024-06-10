@@ -10,7 +10,11 @@ def listar_epi():
     conn = criar_conexao()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM epi ORDER BY DATA_VENCIMENTO ASC")
+    cursor.execute("""
+                   SELECT E.*,F.NOME, F.CARGO FROM epi as E, funcionario as F
+                   WHERE F.ID_FUNCIONARIO = E.ID_FUNCIONARIO
+                   ORDER BY E.DATA_VENCIMENTO ASC")
+                    """)
     epi = cursor.fetchall()
 
     #fechar conexão com banco de dados
