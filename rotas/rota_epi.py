@@ -89,3 +89,27 @@ def deletar_epi(id_epi):
     finally: 
         cursor.close()
         fechar_conexao(conn)
+
+#lista todos as EPIs do banco por id
+@epi_bp.route('/listar_porid', methods=['POST'])
+def listar_epi_porid():
+    data = request.get_json()
+    ID_FUNCIONARIO = data['ID_FUNCIONARIO']
+
+    #conectar com o banco de dados
+    conn = criar_conexao()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM epi "  
+                   "WHERE id_funcionario = %s"
+                   "ORDER BY DATA_VENCIMENTO ASC",
+                   (ID_FUNCIONARIO))
+    epi = cursor.fetchall()
+
+    print(epi)
+
+    #fechar conexão com banco de dados
+    cursor.close()
+    fechar_conexao(conn)
+
+    return jsonify(epi)
