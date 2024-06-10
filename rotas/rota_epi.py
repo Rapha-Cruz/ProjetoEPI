@@ -92,7 +92,7 @@ def deletar_epi(id_epi):
 
 #lista todos as EPIs do banco por id
 @epi_bp.route('/listar_porid', methods=['POST'])
-def listar_epi_porid():
+def listar_porid():
     data = request.get_json()
     ID_FUNCIONARIO = data['ID_FUNCIONARIO']
 
