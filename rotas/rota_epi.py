@@ -104,8 +104,6 @@ def listar_porid():
                    (ID_FUNCIONARIO,))
     epi = cursor.fetchall()
 
-    print(epi)
-
     #fechar conexão com banco de dados
     cursor.close()
     fechar_conexao(conn)
